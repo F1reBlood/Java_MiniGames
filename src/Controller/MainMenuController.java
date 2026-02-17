@@ -12,5 +12,9 @@ public class MainMenuController {
            view.getFrame().dispose();
            new ShiFuMi();
         });
+        view.getNavalButton().addActionListener(e -> {
+           view.getFrame().dispose();
+           new NavalBattle();
+        });
     }
 }

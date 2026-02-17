@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.StyleModel;
+import View.MainMenu;
 
 import java.awt.*;
 import javax.swing.JFrame;
@@ -25,7 +26,7 @@ public class ShiFuMi {
     public ShiFuMi() {
 
         frame = new JFrame();
-        frame.setBounds(100, 100, 450, 300);
+        frame.setBounds(100, 100, 450, 365);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         frame.setVisible(true);
@@ -76,6 +77,18 @@ public class ShiFuMi {
         lblchoixordinateur.setBounds(28, 177, 273, 14);
         StyleModel.addShiFuMiStyleToLabel(lblchoixordinateur);
         frame.getContentPane().add(lblchoixordinateur);
+
+        // --- Bouton Retour ---
+        JButton btnRetour = new JButton("Retour");
+        btnRetour.setBounds(150, 260, 150, 40);
+        StyleModel.addShiFuMiStyleToBackButton(btnRetour);
+        frame.getContentPane().add(btnRetour);
+
+        // --- Listener Retour ---
+        btnRetour.addActionListener(e -> {
+            frame.dispose();
+            new MainMenuController(new MainMenu());
+        });
 
 
         // Action boutons

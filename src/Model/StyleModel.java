@@ -176,4 +176,67 @@ public class StyleModel {
             }
         });
     }
+
+    public static void addShiFuMiStyleToBackButton(JButton button) {
+
+        Color base = new Color(174, 214, 241);
+        Color hover = new Color(133, 193, 233);
+        Color textColor = new Color(44, 62, 80);
+
+        button.setFont(new Font("SansSerif", Font.BOLD, 14));
+        button.setForeground(textColor);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.setBackground(base);
+
+        // Hover effect
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(hover);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(base);
+            }
+        });
+
+        // Border arrondie custom
+        button.setBorder(new javax.swing.border.AbstractBorder() {
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(120, 170, 210));
+                g2.drawRoundRect(x, y, width - 1, height - 1, 30, 30);
+            }
+
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(10, 20, 10, 20);
+            }
+        });
+
+        // Peinture du fond arrondi
+        button.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+
+                JButton b = (JButton) c;
+
+                g2.setColor(b.getBackground());
+                g2.fillRoundRect(0, 0, b.getWidth(), b.getHeight(), 30, 30);
+
+                super.paint(g, c);
+            }
+        });
+    }
+
+
 }

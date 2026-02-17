@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.StyleModel;
+import View.MainMenu;
 
 import java.awt.*;
 
@@ -108,6 +109,61 @@ public class Calculator {
         JButton btnClear = new JButton("C");
         btnClear.setBounds(10, 260, 70, 50);
         frame.getContentPane().add(btnClear);
+
+        // --- Bouton Retour ---
+        JButton btnRetour = new JButton("Retour");
+        btnRetour.setFont(new Font("Arial", Font.BOLD, 12));
+        btnRetour.setBounds(90, 350, 150, 40);
+        frame.getContentPane().add(btnRetour);
+
+        btnRetour.addActionListener(e -> {
+           frame.dispose();
+           new MainMenuController(new MainMenu());
+        });
+
+        Color retourColorRetour = new Color(70, 70, 70);
+        Color textColorRetour = Color.WHITE;
+
+        btnRetour.setForeground(textColorRetour);
+        btnRetour.setBackground(retourColorRetour);
+        btnRetour.setFocusPainted(false);
+        btnRetour.setContentAreaFilled(false);
+        btnRetour.setOpaque(false);
+        btnRetour.setBorder(new StyleModel.RoundedBorder(20));
+        btnRetour.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRetour.setFont(new Font("Arial", Font.BOLD, 14));
+
+        // Hover / Press
+        Color normalRetour = retourColorRetour;
+        Color hoverRetour = new Color(120, 120, 120, 120);
+        Color pressedRetour = new Color(50, 50, 50, 150);
+
+        btnRetour.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) { btnRetour.setBackground(hoverRetour); btnRetour.repaint(); }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) { btnRetour.setBackground(normalRetour); btnRetour.repaint(); }
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) { btnRetour.setBackground(pressedRetour); btnRetour.repaint(); }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) { btnRetour.setBackground(hoverRetour); btnRetour.repaint(); }
+        });
+
+        // UI personnalisé
+        btnRetour.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(btnRetour.getBackground());
+                g2.fillRoundRect(0, 0, btnRetour.getWidth(), btnRetour.getHeight(), 20, 20);
+                g2.dispose();
+                super.paint(g, c);
+            }
+        });
 
         // Action chiffres
         ActionListener chiffreListener = new ActionListener() {
