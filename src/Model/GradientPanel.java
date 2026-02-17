@@ -14,10 +14,9 @@ public class GradientPanel extends JPanel {
                 RenderingHints.VALUE_RENDER_QUALITY);
 
         GradientPaint gradient = new GradientPaint(
-                0, 0, new Color(58, 123, 213),
+                0, 0, new Color(20, 20, 60),
                 getWidth(), getHeight(),
-                new Color(58, 96, 115)
-        );
+                new Color(138, 43, 226));
 
         g2.setPaint(gradient);
         g2.fillRect(0, 0, getWidth(), getHeight());

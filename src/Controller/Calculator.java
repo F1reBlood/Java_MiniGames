@@ -1,13 +1,22 @@
 package Controller;
 
-import java.awt.EventQueue;
+import Model.StyleModel;
+
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JComponent;
+import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 public class Calculator {
 
@@ -133,6 +142,164 @@ public class Calculator {
         btnMoins.addActionListener(operateurListener);
         btnMult.addActionListener(operateurListener);
         btnDiv.addActionListener(operateurListener);
+
+        // Couleurs
+        Color chiffreColor = new Color(50, 50, 50);        // gris foncé
+        Color operateurColor = new Color(255, 140, 0);     // orange
+        Color egalColor = new Color(255, 165, 0);          // orange vif
+        Color clearColor = new Color(220, 20, 60);         // rouge
+        Color textColor = Color.WHITE;
+
+        // Style boutons chiffres
+        JButton[] chiffres = {btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9};
+        for (JButton btn : chiffres) {
+            btn.setFont(new Font("Arial", Font.BOLD, 18));
+            btn.setForeground(textColor);
+            btn.setBackground(chiffreColor);
+            btn.setFocusPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(false);
+            btn.setBorder(new StyleModel.RoundedBorder(20));
+            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            // Hover / Press effet semi-transparent
+            Color normal = chiffreColor;
+            Color hover = new Color(100, 100, 100, 100);
+            Color pressed = new Color(0, 0, 0, 100);
+
+            btn.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) { btn.setBackground(hover); btn.repaint(); }
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) { btn.setBackground(normal); btn.repaint(); }
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent e) { btn.setBackground(pressed); btn.repaint(); }
+                @Override
+                public void mouseReleased(java.awt.event.MouseEvent e) { btn.setBackground(hover); btn.repaint(); }
+            });
+
+            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+                @Override
+                public void paint(Graphics g, JComponent c) {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setColor(btn.getBackground());
+                    g2.fillRoundRect(0, 0, btn.getWidth(), btn.getHeight(), 20, 20);
+                    g2.dispose();
+                    super.paint(g, c);
+                }
+            });
+        }
+
+        // Style boutons opérations
+        JButton[] operateurs = {btnPlus, btnMoins, btnMult, btnDiv};
+        for (JButton btn : operateurs) {
+            btn.setFont(new Font("Arial", Font.BOLD, 18));
+            btn.setForeground(textColor);
+            btn.setBackground(operateurColor);
+            btn.setFocusPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(false);
+            btn.setBorder(new StyleModel.RoundedBorder(20));
+            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            // Hover / Press
+            Color normal = operateurColor;
+            Color hover = new Color(255, 180, 0, 150);
+            Color pressed = new Color(255, 140, 0, 150);
+
+            btn.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) { btn.setBackground(hover); btn.repaint(); }
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) { btn.setBackground(normal); btn.repaint(); }
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent e) { btn.setBackground(pressed); btn.repaint(); }
+                @Override
+                public void mouseReleased(java.awt.event.MouseEvent e) { btn.setBackground(hover); btn.repaint(); }
+            });
+
+            btn.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+                @Override
+                public void paint(Graphics g, JComponent c) {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setColor(btn.getBackground());
+                    g2.fillRoundRect(0, 0, btn.getWidth(), btn.getHeight(), 20, 20);
+                    g2.dispose();
+                    super.paint(g, c);
+                }
+            });
+        }
+
+        // Bouton "=" orange vif
+        btnEgal.setFont(new Font("Arial", Font.BOLD, 18));
+        btnEgal.setForeground(textColor);
+        btnEgal.setBackground(egalColor);
+        btnEgal.setFocusPainted(false);
+        btnEgal.setContentAreaFilled(false);
+        btnEgal.setOpaque(false);
+        btnEgal.setBorder(new StyleModel.RoundedBorder(20));
+        btnEgal.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnEgal.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) { btnEgal.setBackground(new Color(255, 200, 0, 150)); btnEgal.repaint(); }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) { btnEgal.setBackground(egalColor); btnEgal.repaint(); }
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) { btnEgal.setBackground(new Color(255, 165, 0, 150)); btnEgal.repaint(); }
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) { btnEgal.setBackground(new Color(255, 200, 0, 150)); btnEgal.repaint(); }
+        });
+        btnEgal.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(btnEgal.getBackground());
+                g2.fillRoundRect(0, 0, btnEgal.getWidth(), btnEgal.getHeight(), 20, 20);
+                g2.dispose();
+                super.paint(g, c);
+            }
+        });
+
+        // Bouton "C" rouge
+        btnClear.setFont(new Font("Arial", Font.BOLD, 18));
+        btnClear.setForeground(textColor);
+        btnClear.setBackground(clearColor);
+        btnClear.setFocusPainted(false);
+        btnClear.setContentAreaFilled(false);
+        btnClear.setOpaque(false);
+        btnClear.setBorder(new StyleModel.RoundedBorder(20));
+        btnClear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) { btnClear.setBackground(new Color(255, 60, 100, 150)); btnClear.repaint(); }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) { btnClear.setBackground(clearColor); btnClear.repaint(); }
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) { btnClear.setBackground(new Color(220, 20, 60, 150)); btnClear.repaint(); }
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) { btnClear.setBackground(new Color(255, 60, 100, 150)); btnClear.repaint(); }
+        });
+        btnClear.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(btnClear.getBackground());
+                g2.fillRoundRect(0, 0, btnClear.getWidth(), btnClear.getHeight(), 20, 20);
+                g2.dispose();
+                super.paint(g, c);
+            }
+        });
+
+        // Style du champ d’affichage
+        txtAffichage.setBackground(new Color(30, 30, 30));
+        txtAffichage.setForeground(Color.WHITE);
+        txtAffichage.setBorder(new StyleModel.RoundedBorder(15));
+        txtAffichage.setOpaque(false);
+
 
         // Egal
         btnEgal.addActionListener(new ActionListener() {

@@ -48,12 +48,13 @@ public class MainMenu {
         StyleModel.addMainMenuStyleToButton(guessButton);
         StyleModel.addMainMenuStyleToButton(calculatorButton);
 
+        centerPanel.add(Box.createVerticalGlue()); // espace flexible avant
+
         navalButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         shifumiButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         guessButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         calculatorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        centerPanel.add(Box.createVerticalGlue()); // espace flexible avant
         centerPanel.add(guessButton);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10))); // espace entre boutons
         centerPanel.add(shifumiButton);

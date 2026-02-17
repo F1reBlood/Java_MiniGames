@@ -12,11 +12,11 @@ public class StyleModel {
     // BORDURE ARRONDIE
     // =========================
 
-    static class RoundedBorder extends AbstractBorder {
+    public static class RoundedBorder extends AbstractBorder {
 
         private int radius;
 
-        RoundedBorder(int radius) {
+        public RoundedBorder(int radius) {
             this.radius = radius;
         }
 
@@ -55,14 +55,69 @@ public class StyleModel {
 
     public static void addMainMenuStyleToButton(JButton button) {
         button.setFont(new Font("Arial", Font.BOLD, 18));
-        button.setBackground(new Color(72, 61, 139));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setContentAreaFilled(false);
         button.setOpaque(false);
         button.setBorder(new RoundedBorder(30));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Couleurs avec alpha (semi-transparent)
+        Color normal = new Color(72, 61, 139, 0);        // transparent
+        Color hover  = new Color(200, 200, 200, 50);    // gris clair semi-transparent
+        Color pressed = new Color(0, 0, 0, 50);         // noir semi-transparent
+
+        button.setBackground(normal);
+
+        // Hover et press effect
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                button.setBackground(hover);
+                button.repaint();
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                button.setBackground(normal);
+                button.repaint();
+            }
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                button.setBackground(pressed);
+                button.repaint();
+            }
+
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
+                if (button.getBounds().contains(e.getPoint())) {
+                    button.setBackground(hover);
+                } else {
+                    button.setBackground(normal);
+                }
+                button.repaint();
+            }
+        });
+
+        // Redéfinir paintComponent pour dessiner fond arrondi semi-transparent
+        button.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                // Dessiner fond arrondi semi-transparent
+                g2.setColor(button.getBackground());
+                g2.fillRoundRect(0, 0, button.getWidth(), button.getHeight(), 30, 30);
+
+                g2.dispose();
+
+                super.paint(g, c); // texte blanc
+            }
+        });
     }
+
 
     // =========================
     // 🚢 BATAILLE NAVALE STYLE
