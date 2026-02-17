@@ -8,5 +8,9 @@ public class MainMenuController {
             view.getFrame().dispose();
             new Calculator();
         });
+        view.getShifumiButton().addActionListener(e -> {
+           view.getFrame().dispose();
+           new ShiFuMi();
+        });
     }
 }

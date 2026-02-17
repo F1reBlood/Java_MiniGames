@@ -20,7 +20,6 @@ public class MainMenu {
         mainPanel.setLayout(new BorderLayout());
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setVisible(true);
         frame.setMinimumSize(new Dimension(800, 600));
 
@@ -62,6 +61,7 @@ public class MainMenu {
         centerPanel.add(navalButton);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         centerPanel.add(calculatorButton);
+
         centerPanel.add(Box.createVerticalGlue()); // espace flexible après
 
     }

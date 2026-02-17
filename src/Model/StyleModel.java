@@ -3,7 +3,7 @@ package Model;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-
+import java.awt.event.MouseEvent;
 
 
 public class StyleModel {
@@ -138,61 +138,42 @@ public class StyleModel {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
-    // =========================
-    // ✊ SHI FU MI STYLE
-    // =========================
-
     public static void addShiFuMiStyleToLabel(JLabel label) {
-        label.setFont(new Font("Serif", Font.BOLD, 26));
-        label.setForeground(new Color(139, 0, 0));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setFont(new Font("Serif", Font.BOLD, 14));
+        label.setForeground(new Color(44, 62, 80)); // gris foncé lisible sur fond clair
     }
 
-    public static void addShiFuMiStyleToButton(JButton button) {
-        button.setFont(new Font("Serif", Font.BOLD, 18));
-        button.setBackground(new Color(245, 222, 179));
-        button.setForeground(new Color(139, 0, 0));
+    public static void addShiFuMiStyleToButton(JButton button, Color bgColor) {
+        button.setFont(new Font("Serif", Font.BOLD, 16));
+        button.setForeground(Color.BLACK); // texte foncé
         button.setFocusPainted(false);
-        button.setBorder(new LineBorder(new Color(178, 34, 34), 2));
+        button.setContentAreaFilled(false);
+        button.setOpaque(false);
+        button.setBorder(new RoundedBorder(20));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setBackground(bgColor);
+
+        Color normal = bgColor;
+        Color hover = new Color(255, 255, 255, 100);
+        Color pressed = new Color(200, 200, 200, 150);
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override public void mouseEntered(MouseEvent e) { button.setBackground(hover); button.repaint(); }
+            @Override public void mouseExited(MouseEvent e) { button.setBackground(normal); button.repaint(); }
+            @Override public void mousePressed(MouseEvent e) { button.setBackground(pressed); button.repaint(); }
+            @Override public void mouseReleased(MouseEvent e) { button.setBackground(hover); button.repaint(); }
+        });
+
+        button.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void paint(Graphics g, JComponent c) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(button.getBackground());
+                g2.fillRoundRect(0,0,button.getWidth(),button.getHeight(),20,20);
+                g2.dispose();
+                super.paint(g,c);
+            }
+        });
     }
-
-    // =========================
-    // 🔢 DEVINE LE NOMBRE STYLE
-    // =========================
-
-    public static void addDevineNombreStyleToLabel(JLabel label) {
-        label.setFont(new Font("Consolas", Font.BOLD, 28));
-        label.setForeground(new Color(57, 255, 20));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-    }
-
-    public static void addDevineNombreStyleToButton(JButton button) {
-        button.setFont(new Font("Consolas", Font.BOLD, 16));
-        button.setBackground(Color.BLACK);
-        button.setForeground(new Color(57, 255, 20));
-        button.setFocusPainted(false);
-        button.setBorder(new LineBorder(new Color(57, 255, 20), 2));
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }
-
-    // =========================
-    // 🧮 CALCULATRICE STYLE
-    // =========================
-
-    public static void addCalculatriceStyleToLabel(JLabel label) {
-        label.setFont(new Font("Arial", Font.BOLD, 22));
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(SwingConstants.RIGHT);
-    }
-
-    public static void addCalculatriceStyleToButton(JButton button) {
-        button.setFont(new Font("Arial", Font.BOLD, 18));
-        button.setBackground(new Color(50, 50, 50));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setBorder(new LineBorder(new Color(100, 100, 100), 1));
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }
-
 }
