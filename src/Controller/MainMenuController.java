@@ -16,5 +16,9 @@ public class MainMenuController {
            view.getFrame().dispose();
            new NavalBattle();
         });
+        view.getGuessButton().addActionListener(e -> {
+            view.getFrame().dispose();
+            new GuessTheNumber();
+        });
     }
 }
