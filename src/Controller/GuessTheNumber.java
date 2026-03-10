@@ -61,6 +61,8 @@ public class GuessTheNumber {
         winLabel.setBounds(68, 188, 257, 22);
         frame.getContentPane().add(errorLabel);
 
+
+
         pluspetitLabel.setVisible(false);
         plusgrandLabel.setVisible(false);
         winLabel.setVisible(false);
@@ -132,6 +134,53 @@ public class GuessTheNumber {
             frame.dispose();
             new MainMenuController(new MainMenu());
         });
+
+        // ===== STYLE DU JEU =====
+
+// fond de la fenêtre
+        frame.getContentPane().setBackground(new Color(30, 30, 40));
+        frame.setTitle("Guess The Number");
+
+// titre
+        JLabel titleLabel = new JLabel("Devine le nombre !");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBounds(60, 10, 320, 30);
+        frame.getContentPane().add(titleLabel);
+
+// labels (couleur seulement)
+        devineLabel.setForeground(Color.WHITE);
+        ttvlabel.setForeground(Color.WHITE);
+
+        nbtryLabel.setForeground(new Color(0, 200, 255));
+
+// champ texte
+        nbJoueurField.setBackground(new Color(50,50,60));
+        nbJoueurField.setForeground(Color.WHITE);
+        nbJoueurField.setBorder(BorderFactory.createLineBorder(new Color(0,200,255),2));
+
+// bouton principal
+        pressButton.setBackground(new Color(0,120,255));
+        pressButton.setForeground(Color.WHITE);
+        pressButton.setFocusPainted(false);
+        pressButton.setBorder(BorderFactory.createLineBorder(new Color(0,90,200),3));
+
+// bouton rejouer
+        replayButton.setBackground(new Color(0,180,120));
+        replayButton.setForeground(Color.WHITE);
+        replayButton.setFocusPainted(false);
+
+// bouton retour
+        returnButton.setBackground(new Color(200,70,70));
+        returnButton.setForeground(Color.WHITE);
+        returnButton.setFocusPainted(false);
+
+// couleurs messages
+        plusgrandLabel.setForeground(Color.ORANGE);
+        pluspetitLabel.setForeground(Color.ORANGE);
+        winLabel.setForeground(new Color(0,220,120));
+        errorLabel.setForeground(new Color(255,80,80));
 
     }
 }

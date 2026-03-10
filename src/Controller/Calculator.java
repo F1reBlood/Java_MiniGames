@@ -352,7 +352,7 @@ public class Calculator {
 
         // Style du champ d’affichage
         txtAffichage.setBackground(new Color(30, 30, 30));
-        txtAffichage.setForeground(Color.WHITE);
+        txtAffichage.setForeground(Color.BLACK);
         txtAffichage.setBorder(new StyleModel.RoundedBorder(15));
         txtAffichage.setOpaque(false);
 
