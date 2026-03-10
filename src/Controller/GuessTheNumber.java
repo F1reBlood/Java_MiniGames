@@ -10,7 +10,7 @@ public class GuessTheNumber {
     private JFrame frame;
     private JTextField nbJoueurField;
     public int nbTry = 0;
-    public int nbRandom = (int) (Math.random()*(100)+1);
+    public int nbRandom = (int) (Math.random() * (100) + 1);
 
     public GuessTheNumber() {
         frame = new JFrame();
@@ -56,32 +56,55 @@ public class GuessTheNumber {
         winLabel.setBounds(68, 188, 257, 22);
         frame.getContentPane().add(winLabel);
 
+        JLabel errorLabel = new JLabel("Le nombre doit être compris entre 1 et 100");
+        winLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        winLabel.setBounds(68, 188, 257, 22);
+        frame.getContentPane().add(errorLabel);
+
         pluspetitLabel.setVisible(false);
         plusgrandLabel.setVisible(false);
         winLabel.setVisible(false);
+        errorLabel.setVisible(false);
 
         JButton pressButton = new JButton("?");
         pressButton.addActionListener(e -> {
+            try {
                 int nbJoueur = Integer.parseInt(nbJoueurField.getText());
-                nbTry++;
-                if(nbJoueur>nbRandom) {
-                    pluspetitLabel.setVisible(true);
+
+                if (nbJoueur < 1 || nbJoueur > 100) {
+                    pluspetitLabel.setVisible(false);
                     plusgrandLabel.setVisible(false);
                     winLabel.setVisible(false);
-                    nbtryLabel.setText(String.valueOf(nbTry));
-                }
-                else if(nbJoueur<nbRandom) {
-                    pluspetitLabel.setVisible(false);
-                    plusgrandLabel.setVisible(true);
-                    winLabel.setVisible(false);
-                    nbtryLabel.setText(String.valueOf(nbTry));
+                    errorLabel.setVisible(true);
                 }
                 else {
-                    pluspetitLabel.setVisible(false);
-                    plusgrandLabel.setVisible(false);
-                    winLabel.setVisible(true);
-                    nbtryLabel.setText(String.valueOf(nbTry));
+                    nbTry++;
+
+                    if (nbJoueur > nbRandom) {
+                        pluspetitLabel.setVisible(true);
+                        plusgrandLabel.setVisible(false);
+                        winLabel.setVisible(false);
+                        errorLabel.setVisible(false);
+                    }
+                    else if (nbJoueur < nbRandom) {
+                        pluspetitLabel.setVisible(false);
+                        plusgrandLabel.setVisible(true);
+                        winLabel.setVisible(false);
+                        errorLabel.setVisible(false);
+                    }
+                    else {
+                        pluspetitLabel.setVisible(false);
+                        plusgrandLabel.setVisible(false);
+                        winLabel.setVisible(true);
+                        errorLabel.setVisible(false);
+                    }
                 }
+
+                nbtryLabel.setText(String.valueOf(nbTry));
+
+            } catch (NumberFormatException ex) {
+                errorLabel.setVisible(true);
+            }
         });
         pressButton.setFont(new Font("Tahoma", Font.PLAIN, 90));
         pressButton.setBounds(142, 86, 89, 91);
@@ -89,13 +112,13 @@ public class GuessTheNumber {
 
         JButton replayButton = new JButton("Rejouer");
         replayButton.addActionListener(e -> {
-                pluspetitLabel.setVisible(false);
-                plusgrandLabel.setVisible(false);
-                winLabel.setVisible(false);
-                nbRandom = (int) (Math.random()*(100)+1);
-                nbTry = 0;
-                nbtryLabel.setText(String.valueOf(nbTry));
-                nbJoueurField.setText("");
+            pluspetitLabel.setVisible(false);
+            plusgrandLabel.setVisible(false);
+            winLabel.setVisible(false);
+            nbRandom = (int) (Math.random() * (100) + 1);
+            nbTry = 0;
+            nbtryLabel.setText(String.valueOf(nbTry));
+            nbJoueurField.setText("");
         });
         replayButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
         replayButton.setBounds(139, 217, 103, 33);
